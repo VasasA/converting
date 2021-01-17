@@ -333,6 +333,23 @@ function book_update_1000() {
 ?>
 ```
 
+If you have renamed a column in a database table, you have to use [`db_change_field()`](https://api.backdropcms.org/api/backdrop/core%21includes%21database%21database.inc/function/db_change_field/1) function.
+For example when 'drupal' string is replaced with 'backdrop' in the name of a column:
+
+
+
+```php
+<?php
+/**
+ * Rename a column in the 'book_records' table.
+ */
+function book_update_1001() {
+  db_change_field('book_records', 'drupal_user', 'backdrop_user',
+    array('type' => 'varchar', 'length' => 255, 'not null' => FALSE));
+}
+?>
+```
+
 Note that when upgrading a module, all previous updates should be  deleted. If a module has updates numbered 6xxx or 7xxx, be sure to  remove all these updates.
 
 When removing these updates, you should provide an implementation of [`hook_update_last_removed()`](https://api.backdropcms.org/api/backdrop/core!modules!system!system.api.php/function/hook_update_last_removed) in `modulename.install` to indicate which version of the module schema you're expecting when an upgrade is performed:
