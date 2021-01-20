@@ -37,7 +37,7 @@ git push origin 1.x-2.x
 
 You can see all of releases on the project page: `https://www.drupal.org/project/[project_name]/releases`
 
-(Comment: You cannot push into github.com:backdrop-contrib repo, if you are not a member of the backdrop contrib group yet.)
+(Comment: If you are not yet a member of the backdrop contrib group you cannot push into the github.com:backdrop-contrib repository.)
 
 ## Modifying your module's .info file
 
@@ -85,7 +85,7 @@ Backdrop also distinguishes between different types of projects (modules, themes
 
 In Backdrop the class registry has also been removed and replaced with a static class map ([see the related change record](https://api.backdropcms.org/node/26859)).  This means that you'll need to remove any lines in your info file that define files containing PHP classes: `files[] = whatever.inc`.  To have this class loaded you'll need to implement `hook_autoload_info()` in your module file instead.
 
-Except the .test files. For example: `files[] = menu_import.test` Do not need `hook_autoload_info()` for test classes. The .tests.info file will load them. See in next section.
+The exception is test classes. The .test files are loaded with a .tests.info file and not listed in `hook_autoload_info()`. For example: `files[] = menu_import.test`. Read more in next section.
 
 in the Drupal 7 .info file:
 
@@ -165,7 +165,7 @@ group = Menu
 file = menu_import.test
 ```
 If your module contains the jQuery core file, you should remove it. Backdrop currently ships with updated jQuery.
-If the D7 module uses 3rd party scripts, which are in `DRUPAL_ROOT/sites/all/libraries`, then you should create a new directory `BACKDROP_ROOT/libraries`, and place the script files inside this directory. Or you can integrate these files into the module: place inside the `MODULE_ROOT/js` directory, and register with [hook_library_info()](https://api.backdropcms.org/api/backdrop/core%21modules%21system%21system.api.php/function/hook_library_info/1) in `modulename.module`.
+If the Drupal 7 module uses 3rd party scripts, which are in `DRUPAL_ROOT/sites/all/libraries`, then you should create a new directory `BACKDROP_ROOT/libraries`, and place the script files inside this directory. Or you can integrate these files into the module: place inside the `MODULE_ROOT/js` directory, and register with [hook_library_info()](https://api.backdropcms.org/api/backdrop/core%21modules%21system%21system.api.php/function/hook_library_info/1) in `modulename.module`.
 If your module contains .make file, you should consider Drush `make` is [no longer maintained.](https://github.com/drush-ops/drush/issues/3946#issuecomment-467861007) The [Composer](https://getcomposer.org/) is the supported solution.
 
 ## Update your module to use Configuration management
@@ -539,7 +539,7 @@ These are a few of the common module changes which will be required  for porting
 
 Some examples:
 
-- Search result of „hook_page_build”: [New Layout module](https://api.backdropcms.org/change-records/new-layout-module-implements-drag-drop-model-building-layouts) -> $page variable has been removed
+- Search result of "hook_page_build": [New Layout module](https://api.backdropcms.org/change-records/new-layout-module-implements-drag-drop-model-building-layouts) -> $page variable has been removed
 - If the module uses the language key object within the `$message` array parameter in `hook_mail()`, now has a `langcode` property instead of `language` property. Replace it!
 
 You can learn from the code of previously converted modules. Select a module on the [Backdrop modules' site](https://backdropcms.org/modules), follow the "Project page" link to Github, and study the commits.
